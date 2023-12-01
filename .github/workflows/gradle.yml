@@ -27,9 +27,15 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build
-    - run: docker build -t dangtong/jcloudenative .
-    - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - run: docker push dangtong76/getmem
+
+    - name: Docker Image Build
+      run: docker build -t dangtong/jcloudenative .
+    
+    - name: Docker Login
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Docker Push
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/jcloudenative
+
