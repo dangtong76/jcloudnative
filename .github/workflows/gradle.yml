@@ -40,5 +40,5 @@ jobs:
         logout: true
 
     - name: 6.Docker Push
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/jcloudenative:${{ steps.meta.outputs.tags }}
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/jcloudenative
 
